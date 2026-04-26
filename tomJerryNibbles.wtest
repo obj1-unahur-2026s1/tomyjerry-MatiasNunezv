@@ -1,17 +1,66 @@
 import tomJerryNibbles.*
 
-describe "Grupo de test" {
-
-  test "test 1" {
-    assert.equals(100, 50+50)
+describe "grupo de tests" {
+  test "Velocidad despues de comer a jerry" {
+    tom.comer(jerry)
+    assert.equals(15.2, tom.velocidad())
+  }
+  test "Comer a jerry y recorrer distancia" {
+    tom.comer(jerry)
+    tom.correr(24)
+    assert.equals(14, tom.velocidad())
+  }
+  
+  test "Comer a jerry, correr y comer nibbles" {
+    tom.comer(jerry)
+    tom.correr(24)
+    tom.comer(nibbles)
+    assert.equals(18.7, tom.velocidad())
+  }
+  test "comer a jerry, correr, comer a nibbles y comer a jerry luego de cumplir años" {
+    tom.comer(jerry)
+    tom.correr(24)
+    tom.comer(nibbles)
+    jerry.cumplirAño()
+    tom.comer(jerry)
+    assert.equals(25.9, tom.velocidad())
   }
 
-  test "test 3" {
-    assert.that(true)
+  test "comer a jerry, correr, comer a nibbles, comer a jerry luego de cumplir años y volver a correr" {
+    tom.comer(jerry)
+    tom.correr(24)
+    tom.comer(nibbles)
+    jerry.cumplirAño()
+    tom.comer(jerry)
+    tom.correr(38)
+    assert.equals(24, tom.velocidad())
   }
+}
 
-  test "test 4" {
-    assert.notThat(false)
+describe "grupo de test parte 2" {
+  test "Comer a mickey" {
+    tom.cazar(mickey, 20)
+    assert.equals(14.4, tom.velocidad())
   }
+  test "Comer a mickey luego de correr" {
+    tom.correr(20)
+    tom.cazar(mickey, 40)
+    assert.equals(mickey, tom.ultimoRaton())
+  }
+  test "Ver si puede cazar a un raton a 99 metros" {
+    assert.that(tom.puedeCazar(99))
+  }
+  test "Cazar raton luego de quedarse sin energia" {
+    tom.correr(99)
+    assert.notThat(tom.puedeCazar(10))
+  }
+}
 
+describe "historia" {
+  test "Tom corre, caza a jerry, luego caza a mickey y sigue con energia" {
+    tom.correr(20)
+    tom.cazar(jerry, 40)
+    tom.cazar(mickey, 100)
+    assert.that(tom.energia() > 0)
+  }
 }
